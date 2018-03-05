@@ -70,21 +70,26 @@ for i = 1:num_images % image slices
     B = bwboundaries(L_bw);
  
 % combine
-    figure; imagesc(src)
+    figure; imagesc(src);
     if ~draw
         set(gcf, 'Visible', 'off');
     end
     hold on;
     for k = 1:length(B)
        boundary = B{k};
+       
+       if (polyarea(boundary(:,2), boundary(:,1)) <= 1.5)
+           continue;
+       end
+       
        plot(boundary(:,2), boundary(:,1), 'w', 'LineWidth', 2)
     end
     set(gcf,'position',[0 500 length(L)*4 length(L(:,1))*4]);
     hold off;
     
-    dir = '~/Documents/Winter 2017/ECES 486/Project/Segmentations';
+    dir = '~/Documents/Winter 2017/ECES 486/Project/LOCISegmentation/Segmentations';
     saveas(gcf, fullfile(dir, int2str(i)),'jpeg');
-    i
+    fprintf('Image # %d \n',i);
 end
 
 %% Sources
