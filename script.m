@@ -87,7 +87,7 @@ for i = 1:num_images % image slices
     set(gcf,'position',[0 500 length(L)*4 length(L(:,1))*4]);
     hold off;
     
-    dir = '~/Documents/Winter 2017/ECES 486/Project/LOCISegmentation/Segmentations';
+    dir = 'Segmentations';
     saveas(gcf, fullfile(dir, int2str(i)),'jpeg');
     fprintf('Image # %d \n',i);
 end
