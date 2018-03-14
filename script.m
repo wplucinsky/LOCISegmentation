@@ -91,11 +91,3 @@ for i = 1:num_images % image slices
     saveas(gcf, fullfile(dir, int2str(i)),'jpeg');
     fprintf('Image # %d \n',i);
 end
-
-%% Sources
-
-%{
-    https://www.mathworks.com/help/images/ref/watershed.html
-    https://www.mathworks.com/help/images/examples/detecting-a-cell-using-image-segmentation.html
-
-%}
