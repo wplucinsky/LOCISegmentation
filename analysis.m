@@ -1,4 +1,4 @@
-%% ECES 486 - Term Project
+%% ECES 486 - Term Project Analysis
 
 % Will Plucinsky
 % ECES 486
@@ -24,10 +24,10 @@ fname = 'CLC-GFP A19 0.5MS root1.tif';
 info = imfinfo(fname);
 num_images = numel(info);
 
+% num_images = 1; % used for testing
 
-% num_images = 2; % used for testing
-
-
+figure; hold on;
+a=[]; b=[]; c=[];
 for i = 1:num_images % image slices
     if ( num_images > 10 )
         draw = ~true(1);
@@ -37,10 +37,6 @@ for i = 1:num_images % image slices
     
     src = imread(fname,i);
     im = src;
-    
-    if draw
-        figure; imagesc(src);
-    end
     
 % sharpen
     sharp = imsharpen(im,'Radius',8,'Amount',4);
@@ -71,26 +67,48 @@ for i = 1:num_images % image slices
     B = bwboundaries(L_bw);
  
 % combine
-    figure; imagesc(src);
-    if ~draw
-        set(gcf, 'Visible', 'off');
-    end
-    hold on;
+    x=[]; y=[];
     for k = 1:length(B)
        boundary = B{k};
        
-       % disregard segments with an area less than 1.5 px
        if (polyarea(boundary(:,2), boundary(:,1)) <= 1.5)
            continue;
        end
        
-       plot(boundary(:,2), boundary(:,1), 'w', 'LineWidth', 2)
+       % single images
+       x = [x polyarea(boundary(:,2), boundary(:,1))];
+       y = [y length(boundary(:,2)) + length(boundary(:,1))];
+       
+       % all images
+       a = [a polyarea(boundary(:,2), boundary(:,1))];
+       b = [b length(boundary(:,2)) + length(boundary(:,1))];
     end
-    set(gcf,'position',[0 500 length(L)*4 length(L(:,1))*4]);
-    hold off;
-    
-% save segmented images
-    dir = 'Segmentations';
-    saveas(gcf, fullfile(dir, int2str(i)),'jpeg');
-    fprintf('Image # %d \n',i);
+    c = [c length(B)];
+    col = hsv(length(x));
+    scatter(x,y,[],col);
 end
+
+title('Perimeter and Area Comparison of Segmentation')
+xlabel('Area (px)')
+ylabel('Perimeter (px)')
+mdl = fitlm(x,y);
+hold off; 
+
+
+figure;
+histogram(a);
+title('Area Comparison of Segmentation')
+xlabel('Area (px)')
+ylabel('Count')
+
+figure;
+histogram(b);
+title('Perimeter Comparison of Segmentation')
+xlabel('Perimeter (px)')
+ylabel('Count')
+
+figure;
+histogram(c);
+title('Comparison of Segmentation Counts')
+xlabel('Number of Segmentations')
+ylabel('Count')
