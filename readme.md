@@ -3,7 +3,7 @@ Laboratory for Optical and Computational Instrumentation ([LOCI](https://loci.wi
 
 Clathrin Light Chain with Green Fluorescent Protein ([CLC-GFP](http://www.uniprot.org/uniprot/P09496)) Image Segmentation with [Matlab](https://www.mathworks.com/products/matlab.html)
 
-The goal is to programatically determine the boundaries of the clathrin light chains in order to more easily visualize and analyze the images. [LeverJS](http://leverjs.net) is used to track the segmentated areas over time. This is my final project for Drexel's ECES 486 - Cell and Tissue Image Analysis class.
+The goal is to programatically determine the boundaries of the clathrin light chains in order to more easily visualize and analyze the images. [LeverJS](http://leverjs.net) is used to track the segmentated areas over time. This is my final project for Drexel's ECES 486 - Cell and Tissue Image Analysis class. A quick presentation can be found [here](https://docs.google.com/presentation/d/14cn0rTEpvzDUGAnEgptr60_lPP5YNSOcTdOhsISTSKY/edit?usp=sharing).
 
 ## Processing Methods
 - [imsharpen](https://www.mathworks.com/help/images/ref/imsharpen.html)
